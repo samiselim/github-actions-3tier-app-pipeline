@@ -55,15 +55,12 @@ jobs:
             #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
             #     SONAR_TOKEN: ${{ secrets.SONNAR_TOKEN2 }}
     security:
-        defaults:
-            run:
-                working-directory: frontend 
         runs-on: ubuntu-latest
         needs: build
         steps:
           - name: Clonning the repo 
             uses: actions/checkout@v4
-            
+
           - name: Install and run Snyk in frontend
             run: |
               cd frontend
