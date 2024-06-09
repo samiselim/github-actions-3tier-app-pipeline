@@ -60,12 +60,18 @@ jobs:
         steps:
           - name: Clonning the repo 
             uses: actions/checkout@v4
+          - name: Download cached dependencies              
+            id: cache
+            if: ${{ inputs.use-cache }}
+            uses: actions/cache@v3
+            with:
+                path: frontend/node_modules
+                key: ${{ needs.build.outputs.cache-key }}
 
-          - name: Install and run Snyk in frontend
-            run: |
-              cd frontend
-              npm install
-              npx snyk test
+          - name: Snyk Scan (frontend)
+            uses: snyk/actions/node@master
+            with:
+              args: test
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
