@@ -43,7 +43,7 @@ jobs:
               if: ${{ inputs.use-cache }}
               uses: actions/cache@v3
               with:
-                path: 13-caching/react-app/node_modules
+                path: frontend/node_modules
                 key: ${{ steps.cache-key.outputs.CACHE_KEY }}
             - name: Install deps
               if: steps.cache.outputs.cache-hit != true
