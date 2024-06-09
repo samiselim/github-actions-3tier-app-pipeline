@@ -63,9 +63,12 @@ jobs:
         steps:
           - name: Clonning the repo 
             uses: actions/checkout@v4
-
-          - name: Running SCA | security composition analysis
-            uses: snyk/actions/node@master
+            
+          - name: Install and run Snyk in frontend
+            run: |
+              cd frontend
+              npm install
+              npx snyk test
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
