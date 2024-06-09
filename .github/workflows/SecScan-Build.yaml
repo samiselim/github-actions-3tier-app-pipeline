@@ -51,12 +51,14 @@ jobs:
             - name: Install deps of frontend
               if: steps.cache.outputs.cache-hit != true
               run: |
-                cd frontend && npm install && npm install snyk --save-dev
+                cd frontend
+                npm ci
 
             - name: Install deps of backend
               if: steps.cache.outputs.cache-hit != true
               run: |
-                  cd backend && npm install && npm install snyk --save-dev
+                  cd backend
+                  npm ci 
                   
             # - name: SonarCloud Scan
             #   uses: SonarSource/sonarcloud-github-action@master
@@ -85,7 +87,7 @@ jobs:
             continue-on-error: true
             run: |
               cd frontend 
-              npm install 
+              
               npx snyk test
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -94,7 +96,7 @@ jobs:
             continue-on-error: true
             run: |
               cd backend
-              npm install 
+             
               npx snyk test
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
