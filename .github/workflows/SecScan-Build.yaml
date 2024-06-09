@@ -1,0 +1,50 @@
+name: Build Code and run unit test and SAST, SCA and DAST security scans 
+on: 
+    workflow_dispatch:
+        inputs:
+            use-cache:
+                type: boolean
+                default: true
+                description: Whether to execute cache step
+            node-version:
+                type: choice
+                options:
+                  - 16.x
+                  - 18.x
+                  - 20.x
+                  - 21.x
+                default: 20.x    
+                description : Node Version
+            
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        outputs:
+            cache-key: ${{ steps.cache-key.outputs.CACHE_KEY}}
+        defaults:
+            run:
+                working-directory: frontend 
+        steps:
+            - name: Clonning the repo 
+              uses: actions/checkout@v4
+             
+            - name:  Setup Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{ inputs.node-version }}
+
+            - name: Calculate cache key
+              id: cache-key
+              run: |
+                echo CACHE_KEY=deps-node-modules-${{ hashFiles('frontend/package-lock.json') }} >> $GITHUB_OUTPUT
+            
+            - name: Download cached dependencies              
+              id: cache
+              if: ${{ inputs.use-cache }}
+              uses: actions/cache@v3
+              with:
+                path: 13-caching/react-app/node_modules
+                key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+            - name: Install deps
+              if: steps.cache.outputs.cache-hit != true
+              run: npm install
