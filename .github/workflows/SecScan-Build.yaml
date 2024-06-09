@@ -48,14 +48,16 @@ jobs:
                   ${{ steps.cache-key.outputs.CACHE_KEY_FRONTEND }}
                   ${{ steps.cache-key.outputs.CACHE_KEY_BACKEND }}
 
-            - name: Install deps
+            - name: Install deps of frontend
               if: steps.cache.outputs.cache-hit != true
               run: |
-                cd frontend
-                npm install
-                cd ../backend
-                npm install
-            
+                cd frontend && npm install
+
+            - name: Install deps of backend
+              if: steps.cache.outputs.cache-hit != true
+              run: |
+                  cd backend && npm install
+                  
             # - name: SonarCloud Scan
             #   uses: SonarSource/sonarcloud-github-action@master
             #   env:
@@ -79,15 +81,22 @@ jobs:
                   ${{ needs.build.outputs.cache-frontend }}
                   ${{ needs.build.outputs.cache-backend }}
 
-          - name: Install and run Snyk in frontend and backend
+          - name: Install and run Snyk in frontend 
             continue-on-error: true
             run: |
-              cd frontend
-              npx snyk test > snyk-report-frontend.json
-              cd ../backend
-              npx snyk test > snyk-report-backend.json
+              cd frontend && npx snyk test > snyk-report-frontend.json
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+          - name: Install and run Snyk in backend
+            continue-on-error: true
+            run: |
+              cd backend && npx snyk test > snyk-report-backend.json
+            env:
+              SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+
+
           - name: Upload Snyk reports
             uses: actions/upload-artifact@v2
             with:
