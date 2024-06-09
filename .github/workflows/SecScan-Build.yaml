@@ -20,8 +20,8 @@ jobs:
     build:
         runs-on: ubuntu-latest
         outputs:
-            cache-backend: ${{ steps.cache-key.outputs.CACHE_KEY_FRONTEND}}
-            cache-frontend: ${{ steps.cache-key.outputs.CACHE_KEY_BACKEND}}
+            cache-frontend: ${{ steps.cache-key.outputs.CACHE_KEY_FRONTEND}}
+            cache-backend: ${{ steps.cache-key.outputs.CACHE_KEY_BACKEND}}
         steps:
             - name: Clonning the repo 
               uses: actions/checkout@v4
@@ -46,17 +46,17 @@ jobs:
                   backend/node_modules
                 key: | 
                   ${{ steps.cache-key.outputs.CACHE_KEY_FRONTEND }}
-                  ${{ steps.cache-key.outputs.CACHE_KEY_BACKEND }}
+                  ${{ steps.cache-key.outputs.CACHE_KEY_BACKEND }} 
 
             - name: Install deps of frontend
               if: steps.cache.outputs.cache-hit != true
               run: |
-                cd frontend && npm install
+                cd frontend && npm install && npm install snyk --save-dev
 
             - name: Install deps of backend
               if: steps.cache.outputs.cache-hit != true
               run: |
-                  cd backend && npm install
+                  cd backend && npm install && npm install snyk --save-dev
                   
             # - name: SonarCloud Scan
             #   uses: SonarSource/sonarcloud-github-action@master
