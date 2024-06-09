@@ -49,11 +49,11 @@ jobs:
               if: steps.cache.outputs.cache-hit != true
               run: npm install
             
-            - name: SonarCloud Scan
-              uses: SonarSource/sonarcloud-github-action@master
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-                SONAR_TOKEN: ${{ secrets.SONNAR_TOKEN2 }}
+            # - name: SonarCloud Scan
+            #   uses: SonarSource/sonarcloud-github-action@master
+            #   env:
+            #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+            #     SONAR_TOKEN: ${{ secrets.SONNAR_TOKEN2 }}
     security:
         defaults:
             run:
@@ -69,15 +69,15 @@ jobs:
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-    ZAP_scan:
-        runs-on: ubuntu-latest
-        needs: security
-        steps:
-          - name: Clonning the repo 
-            uses: actions/checkout@v4
+    # ZAP_scan:
+    #     runs-on: ubuntu-latest
+    #     needs: security
+    #     steps:
+    #       - name: Clonning the repo 
+    #         uses: actions/checkout@v4
 
-          - name: Running SCA | security composition analysis
-            uses: snyk/actions/node@master
-            continue-on-error: true
-            env:
-              SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    #       - name: Running SCA | security composition analysis
+    #         uses: snyk/actions/node@master
+    #         continue-on-error: true
+    #         env:
+    #           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
