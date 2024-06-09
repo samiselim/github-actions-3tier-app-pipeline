@@ -85,8 +85,8 @@ jobs:
             continue-on-error: true
             run: |
               cd frontend 
-              npm install snyk --save-dev
-              npx snyk test > snyk-report-frontend.json
+              npm install 
+              npx snyk test
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -94,8 +94,8 @@ jobs:
             continue-on-error: true
             run: |
               cd backend
-              npm install snyk --save-dev
-              npx snyk test > snyk-report-backend.json
+              npm install 
+              npx snyk test
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
