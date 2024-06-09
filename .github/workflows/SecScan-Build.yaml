@@ -84,14 +84,18 @@ jobs:
           - name: Install and run Snyk in frontend 
             continue-on-error: true
             run: |
-              cd frontend && npx snyk test > snyk-report-frontend.json
+              cd frontend 
+              npm install snyk --save-dev
+              npx snyk test > snyk-report-frontend.json
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
           - name: Install and run Snyk in backend
             continue-on-error: true
             run: |
-              cd backend && npx snyk test > snyk-report-backend.json
+              cd backend
+              npm install snyk --save-dev
+              npx snyk test > snyk-report-backend.json
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
