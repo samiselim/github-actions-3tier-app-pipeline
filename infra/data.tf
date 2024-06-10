@@ -1,10 +1,10 @@
-data "aws_instance" "jenkins"{
-  filter {
-    name= "tag:Name"
-    values = ["Jenkins"]
-  }
-  # depends_on = [ module.jenkins_instance ]
-}
+# data "aws_instance" "jenkins"{
+#   filter {
+#     name= "tag:Name"
+#     values = ["Jenkins"]
+#   }
+#   # depends_on = [ module.jenkins_instance ]
+# }
 
 # data "aws_ami" "aws_image_latest" {
 #   most_recent = true
