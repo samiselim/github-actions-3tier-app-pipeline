@@ -31,22 +31,3 @@ sg_config = {
     cidr = "0.0.0.0/0"
   }]
 }
-
-oidc_cfg = {
-  attachment_count = [9]
-  AccountNumber = ["767397735708"]
-  RepoName = ["samiselim/github-actions-3tier-app-pipeline"]
-  policies_arn = [
-    "arn:aws:iam::aws:policy/AmazonVPCFullAccess",
-    "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
-    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
-    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
-    "arn:aws:iam::aws:policy/AmazonEKSServicePolicy",
-    "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
-    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess",
-    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
-    "arn:aws:iam::aws:policy/IAMFullAccess"
-
-  ]
-}
-

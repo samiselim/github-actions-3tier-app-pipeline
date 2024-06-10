@@ -16,8 +16,3 @@ variable "public_subnets_config" {
 variable "sg_config" {
   type = map(any)
 }
-
-
-variable "oidc_cfg" {
-    type = map(any)
-}
