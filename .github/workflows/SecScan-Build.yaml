@@ -15,7 +15,9 @@ on:
                   - 21.x
                 default: 20.x    
                 description : Node Version
-            
+permissions: 
+  id-token: write
+  contents: read
 jobs:
     build:
         runs-on: ubuntu-latest
