@@ -32,26 +32,26 @@ sg_config = {
   }]
 }
 
-jenkins_cfg = {
-  instance_count = [1]
-  instance_type = ["t3.medium"]
-  key_name = ["key"]
-  instance_name = ["Jenkins"]
-}
-oidc_cfg = {
-  attachment_count = [8]
-  AccountNumber = ["767397735708"]
-  RepoName = ["samiselim/github-actions-3tier-app-pipeline"]
-  policies_arn = [
-    "arn:aws:iam::aws:policy/AmazonVPCFullAccess",
-    "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
-    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
-    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
-    "arn:aws:iam::aws:policy/AmazonEKSServicePolicy",
-    "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
-    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess",
-    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+# jenkins_cfg = {
+#   instance_count = [1]
+#   instance_type = ["t3.medium"]
+#   key_name = ["key"]
+#   instance_name = ["Jenkins"]
+# }
+# oidc_cfg = {
+#   attachment_count = [8]
+#   AccountNumber = ["767397735708"]
+#   RepoName = ["samiselim/github-actions-3tier-app-pipeline"]
+#   policies_arn = [
+#     "arn:aws:iam::aws:policy/AmazonVPCFullAccess",
+#     "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
+#     "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+#     "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+#     "arn:aws:iam::aws:policy/AmazonEKSServicePolicy",
+#     "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+#     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess",
+#     "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 
-  ]
-}
+#   ]
+# }
 
