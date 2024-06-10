@@ -121,9 +121,7 @@ jobs:
               compose-file: "docker-compose.yml"
             env:
               CUSTOM_VARIABLE: "test"
-          - name: Ensure Application is running 
-            run: curl http://localhost:3000
-             
+
           - name: ZAP Scan
             uses: zaproxy/action-api-scan@v0.7.0
             with:
