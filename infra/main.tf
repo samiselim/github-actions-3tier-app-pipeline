@@ -21,10 +21,10 @@ module "sg" {
   vpc_id = module.vpc.vpc_id
 }
 
-# module "oidc" {
-#   source = "./modules/OIDC"
-#   oidc_cfg = var.oidc_cfg
-# }
+module "oidc" {
+  source = "./modules/OIDC"
+  oidc_cfg = var.oidc_cfg
+}
 module "eks" {
   source = "./modules/EKS"
   subnet_ids = module.vpc.public_subnet_ids

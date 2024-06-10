@@ -17,9 +17,7 @@ variable "sg_config" {
   type = map(any)
 }
 
-# variable "jenkins_cfg" {
-#   type = map(any)
-# }
-# variable "oidc_cfg" {
-#     type = map(any)
-# }
+
+variable "oidc_cfg" {
+    type = map(any)
+}
