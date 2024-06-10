@@ -1,0 +1,85 @@
+name: "terraform action"
+on:
+    workflow_dispatch: 
+        inputs:
+          action:
+            type: choice
+            options:
+              - apply
+              - destroy
+permissions: 
+    id-token: write 
+    contents: read
+env:
+    TF_LOG: INFO
+    AWS_REGION: ${{ secrets.AWS_REGION }}
+jobs:
+    apply:
+        runs-on: ubuntu-latest
+        if: inputs.action == 'apply'
+        defaults:
+            run:
+                shell: bash
+                working-directory: ./infra
+        steps:
+            - name: Git Checkout 
+              uses: actions/checkout@v3
+            
+            - name: Configure AWS Credentials from AWS account
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                role-to-assume:  ${{ secrets.AWS_ROLE }}
+                aws-region: ${{ secrets.AWS_REGION }}
+                role-session-name: GH-OIDC-TERRAFORM
+                
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v3
+
+            - name: Terraform init
+              id: init
+              run: terraform init  
+            
+            - name: Terraform Validate
+              id: validate
+              run: terraform validate -no-color 
+
+            - name: Terraform plan
+              id: plan
+              run: terraform plan -no-color 
+              continue-on-error: true
+        
+            - name: Terraform Plan Status
+              if: steps.plan.outcome == 'failure'
+              run: exit 1
+        
+            - name: Terraform Apply
+              run: terraform apply -auto-approve -input=false
+
+
+    destroy:
+        runs-on: ubuntu-latest
+        if: inputs.action == 'destroy'
+        defaults:
+            run:
+                shell: bash
+                working-directory: ./infra
+        steps: 
+          - name: Git Checkout 
+            uses: actions/checkout@v3
+          
+          - name: Configure AWS Credentials from AWS account
+            uses: aws-actions/configure-aws-credentials@v4
+            with:
+              role-to-assume:  ${{ secrets.AWS_ROLE }}
+              aws-region: ${{ secrets.AWS_REGION }}
+              role-session-name: GH-OIDC-TERRAFORM
+              
+          - name: Setup Terraform
+            uses: hashicorp/setup-terraform@v3
+
+          - name: Terraform init
+            id: init
+            run: terraform init 
+
+          - name: Terraform Destroy
+            run: terraform destroy -auto-approve 

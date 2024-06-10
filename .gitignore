@@ -7,3 +7,5 @@ npm-debug.log
 *.sublime-workspace
 .vs
 secrets
+*.terraform/
+*.terraform.lock.hcl
