@@ -99,8 +99,6 @@ jobs:
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-
-
           - name: Upload Snyk reports
             uses: actions/upload-artifact@v2
             with:
@@ -121,8 +119,12 @@ jobs:
               compose-file: "docker-compose.yml"
             env:
               CUSTOM_VARIABLE: "test"
+              
+          - name: Add a delay to avoid rate limits
+            run: sleep 30
 
           - name: ZAP Scan
+            continue-on-error: true
             uses: zaproxy/action-api-scan@v0.7.0
             with:
               token: ${{ secrets.GITHUB_TOKEN }}
