@@ -96,8 +96,7 @@ jobs:
             continue-on-error: true
             run: |
               cd frontend 
-              npx snyk test > snyk-report-frontend.json
-              aws s3 cp snyk-report-frontend.json s3://${{ secrets.AWS_BACKEND_NAME }}
+              npx snyk test
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -105,8 +104,7 @@ jobs:
             continue-on-error: true
             run: |
               cd backend
-              npx snyk test > snyk-report-backend.json
-              aws s3 cp snyk-report-backend.json s3://${{ secrets.AWS_BACKEND_NAME }}
+              npx snyk test 
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
