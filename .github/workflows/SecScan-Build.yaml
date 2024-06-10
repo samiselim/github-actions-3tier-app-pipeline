@@ -60,11 +60,11 @@ jobs:
                   cd backend
                   npm install
                   
-            # - name: SonarCloud Scan
-            #   uses: SonarSource/sonarcloud-github-action@master
-            #   env:
-            #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-            #     SONAR_TOKEN: ${{ secrets.SONNAR_TOKEN2 }}
+            - name: SonarCloud Scan
+              uses: SonarSource/sonarcloud-github-action@master
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+                SONAR_TOKEN: ${{ secrets.SONNAR_TOKEN2 }}
     security:
         runs-on: ubuntu-latest
         needs: build
@@ -87,7 +87,7 @@ jobs:
             continue-on-error: true
             run: |
               cd frontend 
-              npx snyk test
+              npx snyk test > snyk-report-frontend.json
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -95,7 +95,7 @@ jobs:
             continue-on-error: true
             run: |
               cd backend
-              npx snyk test
+              npx snyk test > snyk-report-backend.json
             env:
               SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -119,7 +119,7 @@ jobs:
               compose-file: "docker-compose.yml"
             env:
               CUSTOM_VARIABLE: "test"
-              
+
           - name: Add a delay to avoid rate limits
             run: sleep 30
 
