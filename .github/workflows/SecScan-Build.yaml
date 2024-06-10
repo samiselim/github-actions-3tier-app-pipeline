@@ -51,11 +51,13 @@ jobs:
             - name: Install deps of frontend
               if: steps.cache.outputs.cache-hit != true
               run: |
+                cd frontend
                 npm install
 
             - name: Install deps of backend
               if: steps.cache.outputs.cache-hit != true
               run: |
+                  cd backend
                   npm install
                   
             # - name: SonarCloud Scan
