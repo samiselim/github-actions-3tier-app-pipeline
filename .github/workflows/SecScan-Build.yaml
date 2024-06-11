@@ -159,7 +159,8 @@ jobs:
         run: |
           git config --local user.email "samiselim.github.com"
           git config --local user.name "samiselim"
-          git commit -a -m "Edit Deployment files with the new images "
+          git remote set-url origin https://samiselim:$${{ github.token }}@github.com/samiselim/github-actions-3tier-app-pipeline.git
+          git commit -m "Edit Deployment files with the new images "
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
