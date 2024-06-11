@@ -1,12 +1,12 @@
-FROM node:20-alpine as build
+FROM node:14 as build
 
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package*.json ./
+COPY package.json ./
+COPY . .
 
 RUN npm install
 
-COPY . .
 
 RUN npm run build
 
