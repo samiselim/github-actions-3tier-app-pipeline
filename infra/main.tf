@@ -26,6 +26,7 @@ module "eks" {
   source = "./modules/EKS"
   subnet_ids = module.vpc.public_subnet_ids
   worker_subnet_ids = module.vpc.public_subnet_ids
+  sg_ids = module.sg.sg_id
 }
 module "ecr1" {
   source = "./modules/ECR"
