@@ -1,16 +1,19 @@
-FROM node:14-alpine
+FROM node:20-alpine as build
 
-WORKDIR /app
-
-# add '/app/node_modules/.bin' to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-# install application dependencies
+WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package*.json ./
-RUN npm install
-# RUN npm install react-scripts -g
 
-# copy app files
+RUN npm install
+
 COPY . .
 
-EXPOSE 3000
-CMD ["npm", "start"]
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+

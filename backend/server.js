@@ -3,11 +3,13 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const port = 3001;
 const routes = require("./routes");
+require('dotenv').config(); 
 
+const dbURI = process.env.MONGO_DB_URI
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb://root:123@mongo:27017/todos?authSource=admin", {
+  await mongoose.connect(dbURI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
