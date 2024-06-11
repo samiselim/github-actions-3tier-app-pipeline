@@ -128,7 +128,7 @@ jobs:
               image: backend-image
               registry: ${{ secrets.ECR }}  
               dockerfile: backend/Dockerfile
-              tags: $GITHUB_RUN_NUMBER         
+              tags: ${{ github.run_number }}        
             env:
               AWS_ACCESS_KEY_ID: ${{ steps.cred.outputs.aws-access-key-id }}
               AWS_SECRET_ACCESS_KEY: ${{ steps.cred.outputs.aws-secret-access-key }}
@@ -140,11 +140,30 @@ jobs:
               image: frontend-image
               registry: ${{ secrets.ECR }}  
               dockerfile: frontend/Dockerfile
-              tags: $GITHUB_RUN_NUMBER         
+              tags: ${{ github.run_number }}       
             env:
               AWS_ACCESS_KEY_ID: ${{ steps.cred.outputs.aws-access-key-id }}
               AWS_SECRET_ACCESS_KEY: ${{ steps.cred.outputs.aws-secret-access-key }}
               AWS_SESSION_TOKEN: ${{ steps.cred.outputs.aws-session-token }}
+      
+    build:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v4
+      - name: Create local changes
+        run: |
+          sed -i 's|image:.*|image: ${{ secrets.ECR }}/backend-image:${{ github.run_number }}|g' ./k8s/backend-deployment.yaml
+          sed -i 's|image:.*|image: ${{ secrets.ECR }}/frontend-image:${{ github.run_number }}|g' ./k8s/frontend-deployment.yaml
+      - name: Commit files
+        run: |
+          git config --local user.email "sami.noreply.github.com"
+          git config --local user.name "github-actions"
+          git commit -a -m "Edit Deployment files with the new images "
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
     # ZAP_scan:
     #     runs-on: ubuntu-latest
     #     needs: security
