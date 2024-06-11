@@ -153,8 +153,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create local changes
         run: |
-          sed -i 's|image:.*|image: ${{ secrets.ECR }}/backend-image:${{ github.run_number }}|g' ./k8s/backend-deployment.yaml
-          sed -i 's|image:.*|image: ${{ secrets.ECR }}/frontend-image:${{ github.run_number }}|g' ./k8s/frontend-deployment.yaml
+          sed -i 's|backend-image-name:.*|backend-image-name: ${{ secrets.ECR }}/backend-image:${{ github.run_number }}|g' ./helm/3teir-app/values.yaml
+          sed -i 's|frontend-image-name:.*|frontend-image-name: ${{ secrets.ECR }}/frontend-image:${{ github.run_number }}|g' ./helm/3teir-app/values.yaml
       - name: Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"

@@ -1,17 +1,20 @@
-# Stage 1: Build the Node.js application
+# Use the official Node.js image as the base image
 FROM node:14 as build
 
-WORKDIR /app
-
+WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package*.json ./
-RUN  npm install cors
+RUN npm install cors
 RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 FROM nginx:alpine
 
-COPY --from=build /app /app
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
+
 EXPOSE 80
 
-CMD ["sh", "-c", "node /app/server.js & nginx -g 'daemon off;'"]
+CMD ["nginx", "-g", "daemon off;"]

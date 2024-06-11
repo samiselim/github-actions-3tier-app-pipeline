@@ -1,20 +1,22 @@
-# Use the official Node.js image
-FROM node:14
+FROM node:14 as build
 
-# Create and change to the app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy application dependency manifests to the container image
 COPY package*.json ./
-
-# Install dependencies
+RUN  npm install cors
 RUN npm install
 
-# Copy application files
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3001
+FROM nginx:alpine
 
-# Run the application
-CMD ["node", "server.js"]
+COPY --from=build /app /app
+
+COPY default.conf /etc/nginx/conf.d/default.conf
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+RUN apk add --no-cache nodejs npm
+
+EXPOSE 80
+
+CMD ["sh", "-c", "node /app/server.js & nginx -g 'daemon off;'"]
