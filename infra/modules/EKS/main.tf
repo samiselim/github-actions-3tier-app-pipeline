@@ -70,10 +70,7 @@ resource "aws_eks_node_group" "node_group" {
   node_role_arn   = aws_iam_role.eks_worker_node_role.arn
   subnet_ids      = var.worker_subnet_ids
   instance_types = ["t3.medium"]
-  remote_access {
-    source_security_group_ids = var.sg_ids
-  }
-  
+
   scaling_config {
     desired_size = 2
     max_size     = 5
