@@ -159,7 +159,7 @@ jobs:
         run: |
           git config --local user.email "github.com"
           git config --local user.name "github actions"
-          git remote set-url origin https:samiselim:${{ secrets.GITHUB_TOKEN }}@github.com/samiselim/github-actions-3tier-app-pipeline.git
+          git remote set-url origin https://samiselim:${{ secrets.GITHUB_TOKEN }}@github.com/samiselim/github-actions-3tier-app-pipeline.git
           git add ./k8s/backend-deployment.yaml ./k8s/frontend-deployment.yaml
           git commit -m "Edit Deployment files with the new images"
           git push origin HEAD:main 
