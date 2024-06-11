@@ -157,8 +157,8 @@ jobs:
           sed -i 's|image:.*|image: ${{ secrets.ECR }}/frontend-image:${{ github.run_number }}|g' ./k8s/frontend-deployment.yaml
       - name: Commit files
         run: |
-          git config --local user.email "sami.noreply.github.com"
-          git config --local user.name "github-actions"
+          git config --local user.email "samiselim.github.com"
+          git config --local user.name "samiselim"
           git commit -a -m "Edit Deployment files with the new images "
       - name: Push changes
         uses: ad-m/github-push-action@master
