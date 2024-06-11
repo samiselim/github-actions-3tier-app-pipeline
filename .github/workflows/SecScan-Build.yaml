@@ -159,13 +159,13 @@ jobs:
         run: |
           git config --local user.email "samiselim.github.com"
           git config --local user.name "samiselim"
-          git commit -a -m "Edit Deployment files with the new images "
+          git add ./k8s/backend-deployment.yaml ./k8s/frontend-deployment.yaml
+          git commit -m "Edit Deployment files with the new images"
+
       - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          repository: samiselim/github-actions-3tier-app-pipeline
-          github_token: ${{ github.token }}
-          branch: ${{ github.ref }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/samiselim/github-actions-3tier-app-pipeline.git
+          git push -u origin main
     # ZAP_scan:
     #     runs-on: ubuntu-latest
     #     needs: security
