@@ -165,7 +165,7 @@ jobs:
       - name: Push changes
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/samiselim/github-actions-3tier-app-pipeline.git
-          git push -u origin main
+          git push -u origin main 
     # ZAP_scan:
     #     runs-on: ubuntu-latest
     #     needs: security
