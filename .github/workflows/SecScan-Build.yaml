@@ -163,7 +163,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          repository: https://github.com/samiselim/github-actions-3tier-app-pipeline
+          repository: samiselim/github-actions-3tier-app-pipeline
           github_token: ${{ github.token }}
           branch: ${{ github.ref }}
     # ZAP_scan:
