@@ -190,7 +190,11 @@ jobs:
         - uses: tale/kubectl-action@v1
           with:
             base64-kube-config: ${{ env.EKS_CREDS }}
-        - run: kubectl get nodes
+        - run: |
+            kubectl set env ./k8s/backend-deployment MONGO_DB_URI=${{ secrets.DB_URI }}
+            kubectl apply -f ./k8s/db-secret.yaml 
+            kubectl apply -f ./k8s/backend-deployment.yaml
+            kubectl apply -f ./k8s/frontend-deployment.yaml
 
     # ZAP_scan:
     #     runs-on: ubuntu-latest
