@@ -1,22 +1,20 @@
-FROM node:14 as build
+# Use an official Node.js runtime as a parent image
+FROM node:14
 
+# Set the working directory
 WORKDIR /app
 
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN  npm install cors
+
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application code
 COPY . .
 
-FROM nginx:alpine
+# Expose the port the app runs on
+EXPOSE 8080
 
-COPY --from=build /app /app
-
-COPY default.conf /etc/nginx/conf.d/default.conf
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-RUN apk add --no-cache nodejs npm
-
-EXPOSE 80
-
-CMD ["sh", "-c", "node /app/server.js & nginx -g 'daemon off;'"]
+# Command to run the app
+CMD ["npm", "start"]

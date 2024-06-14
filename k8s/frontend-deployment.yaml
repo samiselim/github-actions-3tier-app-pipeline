@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: frontend-deployment
 spec:
   replicas: 2
   selector:
@@ -13,10 +13,20 @@ spec:
         app: frontend
     spec:
       containers:
-        - name: frontend
-          image: 767397735708.dkr.ecr.eu-west-3.amazonaws.com/frontend-image:47
-          ports:
-            - containerPort: 3000
-          env:
-            - name: REACT_APP_API_URL
-              value: "http://backend/api"
+      - name: frontend
+        image: <account-id>.dkr.ecr.<your-region>.amazonaws.com/frontend-app:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

@@ -1,20 +1,27 @@
-# Use the official Node.js image as the base image
-FROM node:14 as build
+# Use an official Node.js runtime as a parent image
+FROM node:14 AS build
 
-WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm install cors
+
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application code
 COPY . .
 
+# Build the app
 RUN npm run build
 
+# Use an Nginx image to serve the built app
 FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
 
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
-
+# Expose the port the app runs on
 EXPOSE 80
 
+# Command to run Nginx
 CMD ["nginx", "-g", "daemon off;"]
