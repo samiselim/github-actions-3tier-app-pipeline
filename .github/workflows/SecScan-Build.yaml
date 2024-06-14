@@ -121,18 +121,18 @@ jobs:
               aws-region: ${{ secrets.AWS_REGION }}
               output-credentials: true
 
-          - name: Build Backend Image and push it to ECR
+          # - name: Build Backend Image and push it to ECR
             
-            uses: mr-smithers-excellent/docker-build-push@v6
-            with:
-              image: backend-image
-              registry: ${{ secrets.ECR }}  
-              dockerfile: backend/Dockerfile
-              tags: ${{ github.run_number }}        
-            env:
-              AWS_ACCESS_KEY_ID: ${{ steps.cred.outputs.aws-access-key-id }}
-              AWS_SECRET_ACCESS_KEY: ${{ steps.cred.outputs.aws-secret-access-key }}
-              AWS_SESSION_TOKEN: ${{ steps.cred.outputs.aws-session-token }}
+          #   uses: mr-smithers-excellent/docker-build-push@v6
+          #   with:
+          #     image: backend-image
+          #     registry: ${{ secrets.ECR }}  
+          #     dockerfile: backend/Dockerfile
+          #     tags: ${{ github.run_number }}        
+          #   env:
+          #     AWS_ACCESS_KEY_ID: ${{ steps.cred.outputs.aws-access-key-id }}
+          #     AWS_SECRET_ACCESS_KEY: ${{ steps.cred.outputs.aws-secret-access-key }}
+          #     AWS_SESSION_TOKEN: ${{ steps.cred.outputs.aws-session-token }}
 
           - name: Build Frontend Image and push it to ECR
             run: |
