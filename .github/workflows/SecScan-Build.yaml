@@ -168,6 +168,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
     eks-control:
+      needs: Edit_Deployment_files
       runs-on: ubuntu-latest
       steps:
         - name: Clonning the repo 
