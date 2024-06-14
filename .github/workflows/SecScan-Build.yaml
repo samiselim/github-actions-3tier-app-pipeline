@@ -186,9 +186,8 @@ jobs:
           with:
             base64-kube-config: ${{ env.EKS_CREDS }}
         - run: |
-            kubectl set env ./k8s/backend-deployment.yaml MONGO_DB_URI=${{ secrets.DB_URI }}
-            kubectl apply -f ./k8s/db-secret.yaml 
             kubectl apply -f ./k8s/backend-deployment.yaml
+            kubectl set env deployment/backend-deployment MONGO_DB_URI=${{ secrets.DB_URI }}
             kubectl apply -f ./k8s/frontend-deployment.yaml
 
     # ZAP_scan:
