@@ -138,9 +138,9 @@ jobs:
           - name: Build Frontend Image and push it to ECR
             run: |
               cd frontend
-              docker build -t ${{ secrets.ECR }}/backend-image:${{ github.run_number }} .
+              docker build -t ${{ secrets.ECR }}/frontend-image:${{ github.run_number }} .
               aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR }}
-              docker push ${{ secrets.ECR }}/backend-image:${{ github.run_number }}
+              docker push ${{ secrets.ECR }}/frontend-image:${{ github.run_number }}
     Edit_Deployment_files:
       needs: Build_Images
       runs-on: ubuntu-latest
