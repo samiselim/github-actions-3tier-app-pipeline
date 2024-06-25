@@ -27,13 +27,4 @@ module "eks" {
   subnet_ids = module.vpc.public_subnet_ids
   worker_subnet_ids = module.vpc.public_subnet_ids
  }
-module "ecr1" {
-  source = "./modules/ECR"
-  ECR_name = "frontend-image"
-  mutability = "MUTABLE"  
-}
-module "ecr2" {
-  source = "./modules/ECR"
-  ECR_name = "backend-image"
-  mutability = "MUTABLE"  
-}
+
