@@ -23,7 +23,7 @@ module "sg" {
 
 module "eks" {
   source = "./modules/EKS"
-  subnet_ids = [module.vpc.public_subnet_ids , module.vpc.private_subnets_ids]
+  subnet_ids = concat(module.vpc.private_subnet_ids , module.vpc.public_subnet_ids)
   worker_subnet_ids = module.vpc.public_subnet_ids
  }
 
