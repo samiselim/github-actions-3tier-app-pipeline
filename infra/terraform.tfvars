@@ -7,7 +7,7 @@ public_subnets_config = {
   subnet_azs   = ["eu-west-3a" , "eu-west-3b"]
 }
 private_subnets_config = {
-  subnet_count = [0]
+  subnet_count = [2]
   subnet_cidrs = ["10.0.3.0/24" , "10.0.4.0/24"]
   subnet_azs   = ["eu-west-3a" , "eu-west-3b"]
 }

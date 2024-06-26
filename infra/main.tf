@@ -21,10 +21,9 @@ module "sg" {
   vpc_id = module.vpc.vpc_id
 }
 
-
 module "eks" {
   source = "./modules/EKS"
-  subnet_ids = module.vpc.public_subnet_ids
+  subnet_ids = [module.vpc.public_subnet_ids , module.vpc.private_subnets_ids]
   worker_subnet_ids = module.vpc.public_subnet_ids
  }
 
