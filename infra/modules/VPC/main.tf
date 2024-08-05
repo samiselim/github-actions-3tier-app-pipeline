@@ -57,7 +57,7 @@ resource "aws_subnet" "private_subnet" {
 
 resource "aws_nat_gateway" "ngw" {
   count = var.private_subnets_config["subnet_count"][0]
-  subnet_id = aws_subnet.public_subnet[count.index].id
+  subnet_id = aws_subnet.private_subnet[count.index].id
   allocation_id = aws_eip.eip[count.index].id
 }
 resource "aws_route_table" "ngw-rtw" {
