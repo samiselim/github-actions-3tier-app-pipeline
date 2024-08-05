@@ -23,8 +23,8 @@ module "sg" {
 
 module "eks" {
   source = "./modules/EKS"
-  subnet_ids = concat(module.vpc.private_subnet_ids , module.vpc.public_subnet_ids)
-  worker_subnet_ids = module.vpc.public_subnet_ids
+  subnet_ids = module.vpc.private_subnet_ids
+  worker_subnet_ids = module.vpc.private_subnet_ids
  }
 resource "helm_release" "alb_ingress_controller" {
   name       = "alb-ingress-controller"
