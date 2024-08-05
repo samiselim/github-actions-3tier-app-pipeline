@@ -87,19 +87,3 @@ resource "aws_eks_node_group" "node_group" {
 
   ]
 }
-resource "aws_eks_addon" "cnii" {
-  cluster_name = aws_eks_cluster.eks.name
-  addon_name   = "vpc-cni"
-}
-resource "aws_eks_addon" "coredns" {
-  cluster_name                = aws_eks_cluster.eks.name
-  addon_name                  = "coredns"
-}
-resource "aws_eks_addon" "kube-proxy" {
-  cluster_name                = aws_eks_cluster.eks.name
-  addon_name                  = "kube-proxy"
-}
-resource "aws_eks_addon" "aws-ebs-csi-driver" {
-  cluster_name                = aws_eks_cluster.eks.name
-  addon_name                  = "aws-ebs-csi-driver"
-}
