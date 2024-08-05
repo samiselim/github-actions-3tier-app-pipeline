@@ -8,8 +8,8 @@ public_subnets_config = {
 }
 private_subnets_config = {
   subnet_count = [3]
-  subnet_cidrs = ["10.0.3.0/24" , "10.0.4.0/24"]
-  subnet_azs   = ["eu-west-3a" , "eu-west-3b"]
+  subnet_cidrs = ["10.0.3.0/24" , "10.0.4.0/24" , "10.0.5.0/24"]
+  subnet_azs   = ["eu-west-3a" , "eu-west-3b" , "eu-west-3c"]
 }
 sg_config = {
   ingress_count = [{count = 6}]
